@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href='styles.css'>
+</head>
+
+<body>
+  <script type="text/javascript" src="scripts.js"></script>
+  <div class='header'>
+    <h1><span> Number </span> Guesser </h1>
+  </div> 
+</br>
+</br>
+  <div>
+    Set a range: <br>
+    Minimum: <input id='minimum' type='text' placeholder='0'><br>
+    Maximum: <input id='maximum' type='text' placeholder='100'><br>
+    <button class='button' onclick="setRange()">Set Range</button>
+
+  </div>
+</br>
+</br>
+  <div>
+    <input id='guess' type='text' placeholder='Enter your guess'><br><br>
+    <button class='button' onclick="submitGuess()">Submit Guess</button>
+    <button class='button' id='clear' onclick="clearInput()" disabled>Clear Input</button>
+    <p id="feedback"></p>
+    <button class='button' id='reset' onclick="resetGame()" disabled>Reset Game</button>
+  </div>
+</body>
+
+</html>
