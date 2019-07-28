@@ -1,0 +1,44 @@
+body {
+  /* display: inline; */
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #EEE7E7;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+
+.input {
+  background: #e8ebed;
+  border: 1px solid #dfe4e6;
+  color: #576366;
+  line-height: 1;
+  display: block;
+  border-radius: 5px;
+  height: 32px;
+  padding: 0 8px;
+  margin: 0;
+  width: 60%;
+}
+
+.form-elem{
+  display: flex;
+  justify-content: left;
+  padding: 0.5em;
+  flex-direction: row;
+  padding-left: 8em;
+  padding-right: 8em;
+}
+
+.NewStudentForm{
+  padding-left: 8em;
+  padding-top: 3em;
+  padding-right: 8em;
+}
