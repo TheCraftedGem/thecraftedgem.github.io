@@ -152,7 +152,9 @@ def delete_user(user) do
   Logger.error([[128721], “ Failed To Delete: “, IO.ANSI.white, inspect(user)]) 
 end
 ```
-Alloy Access > 2022/11/23 > [IOData, CharData, ANSIData] - The Best Data Types for Moving Data to People and Machines > Screen Shot 2022-11-23 at 11.20.48 AM.png
+
+<img width="812" alt="Screen Shot 2022-11-23 at 11 20 48 AM" src="https://user-images.githubusercontent.com/38091448/208156729-d008f240-5f43-48a8-a787-16e4a05a634b.png">
+
 
 This is just one example of how you can utilize Chardata and ANSI in your applications, but the possibilities are endless. 
 
