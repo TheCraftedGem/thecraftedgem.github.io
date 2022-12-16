@@ -1,6 +1,7 @@
+# [IOData, CharData, ANSIData] - The Best DataTypes For Printing Things To The Screen
 
-## ["IO", "Data >", " #{"String Interpolation "}", "& concat!"] |> IO.puts()
-## => "IOData > String Interpolation & concat!"
+### ["IO", "Data >", " #{"String Interpolation "}", "& concat!"] |> IO.puts()
+### => "IOData > String Interpolation & concat!"
 The above lines might be a little confusing at first, especially if you’ve never dealt with IOData, but alas fear not, IOData might become one of your new favorite data types after reading this. IOData is a data type that can be used as a more efficient alternative to binaries especially when you need to concat or string interpolate pieces of data.
 
 In order to truly grasp the benefits of IOData, we must be familiar with the idea of immutability, without understanding that first a lot of this article might not make too much sense. So lets first start off with some prerequisites that will make life in Elixir land a little easier, if you’re familiar with these concepts feel free to skip ahead.
