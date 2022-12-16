@@ -160,7 +160,7 @@ This is just one example of how you can utilize Chardata and ANSI in your applic
 
 If you’d like to explore IOData abit more, I recommend playing around with this hex package.
 
-IO Wrap
+[IO Wrap](https://github.com/TheCraftedGem/io_wrap/blob/main/README.md)
 
 It creates a sigil macro that takes a string with embedded interpolations and makes it into IOData.
 
