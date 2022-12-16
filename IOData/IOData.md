@@ -75,7 +75,7 @@ One drawback of IO data is that you can't do things like pattern match on the fi
 
 We’re all familiar with the task of either combining binaries/strings via concat, inserting data into a binary via string interpolation, we wouldn’t be able to do some fundamental things if we couldn’t manipulate strings. 
 
-### Nerves Specific Use Case: Circuits.I2C
+### Nerves Specific Use Case: [Circuits.I2C](https://hexdocs.pm/circuits_i2c/Circuits.I2C.html)
 
 The Circuits.I2C module is another place were IOData is commonly utilized, specifically Circuits.I2C.write/4, we know this by checking the type spec for the function. 
 
@@ -100,7 +100,7 @@ end
 If you look through the code in many Nerves libraries, the code in the example above us a common pattern you’ll see.
 
 # Chardata
-Now to move onto the next useful datatype Chardata! Erlang and Elixir also have the idea of chardata/0. Chardata is very similar to IO data: the only difference is that integers in IO data represent bytes while integers in chardata represent Unicode code points. 
+Now to move onto the next useful datatype Chardata! Erlang and Elixir also have the idea of chardata/0. Chardata is very similar to IO data: the only difference is that integers in IO data represent bytes while integers in chardata represent Unicode [code points](https://en.wikipedia.org/wiki/Code_point). 
 
 ### This means it can support Emojis.
 
@@ -127,13 +127,13 @@ This seems pretty awesome, but where can you start using Chardata, well a good p
 
 # ANSIData
 
-Elixir provides us the functionality to render ANSI escape sequences. ANSI escape sequences are characters embedded in text used to control formatting, color, and other output options on video text terminals. 
+Elixir provides us the functionality to render ANSI escape sequences. [ANSI escape sequences](https://en.wikipedia.org/wiki/ANSI_escape_code) are characters embedded in text used to control formatting, color, and other output options on video text terminals. 
 
 ### Better Logs Using Chardata And ANSIData. 
 
-The following most likely looks familiar, it’s a common pattern we use with the Logger Module, we create a message, and use string interpolation to complete the message.
+The following most likely looks familiar, it’s a common pattern we use with the [Logger Module](https://hexdocs.pm/logger/1.12.3/Logger.html), we create a message, and use string interpolation to complete the message.
 
-The IO.ANSI Module is a tool we can use to help further customize your log messages, this lets you play with the color of your terminal. 
+The [IO.ANSI Module](https://hexdocs.pm/elixir/1.14/IO.ANSI.html) is a tool we can use to help further customize your log messages, this lets you play with the color of your terminal. 
 
 Logger already uses some Ansidata to color your error messages red, but sometimes you don’t wanna read through a sea of red you might need some data to stand out more we can use a combination of Chardata and ANSIData to accomplish this. 
 ```
@@ -167,10 +167,10 @@ It creates a sigil macro that takes a string with embedded interpolations and ma
 These datatypes can be pretty useful, not only can they help bring personality and expression to your code, they can bring some great performance benefits when used correctly. We hope to start seeing em being used more in the Elixir community. We mainly used log messages for the examples simply because Logger is a pretty common module but don’t think it’s the only place you can use these datatypes. Poke around your codebase and you might be surprised where you might be able to use IOData, Chardata, and ANSIdata. Cheers! Below are some useful resources that I used in putting this article together. 
 
 ### Useful Resources
-- Understanding IODATA
-- IO Docs
-- IO.ANSI Docs
-- Youtube Beam The Elixir IO List data type makes for very fast output
-- Elixir and Erlang have a type called an iolist.
-- Behind The Scenes Of File IO
-- List Of Emojis
+- [Understanding IODATA](https://elixirforum.com/t/understanding-iodata/3932/3)
+- [IO Docs](https://hexdocs.pm/elixir/IO.html)
+- [IO.ANSI Docs](https://hexdocs.pm/elixir/IO.ANSI.html#color/1)
+- [Youtube Beam The Elixir IO List data type makes for very fast output](https://www.youtube.com/watch?v=kLaRP-kklJw)
+- [Elixir and Erlang have a type called an iolist.](https://www.openmymind.net/Elixir-A-Little-Beyond-The-Basics-Part-2-iolist/)
+- [Behind The Scenes Of File IO](https://www.youtube.com/watch?v=LG2VK9Ui5yU)
+- [List Of Emojis](https://www.quackit.com/character_sets/emoji/emoji_v3.0/unicode_emoji_v3.0_characters_all.cfm)
