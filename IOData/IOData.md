@@ -5,10 +5,12 @@ The above lines might be a little confusing at first, especially if you’ve nev
 
 In order to truly grasp the benefits of IOData, we must be familiar with the idea of immutability, without understanding that first a lot of this article might not make too much sense. So lets first start off with some prerequisites that will make life in Elixir land a little easier, if you’re familiar with these concepts feel free to skip ahead.
 
+
+
 # Prerequisites
 
 - Mindset: Instead of asking “How to do X in Elixir?”, ask “How to solve Y in Elixir?”. In other words, don’t ask how to implement a particular solution, instead describe the problem at hand. Stating the problem gives more context and less bias for a correct answer.
-- Immutability In Elixir
+- [Immutability In Elixir]([https://www.example.com](https://darioghilardi.com/immutability-in-elixir/))
 - Terms
     - Bytes: are integers in range 0..255
     - Unicode: are integers in the range 0..0x10FFFF i.e. 0..17825776
