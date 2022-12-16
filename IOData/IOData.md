@@ -10,7 +10,7 @@ In order to truly grasp the benefits of IOData, we must be familiar with the ide
 # Prerequisites
 
 - Mindset: Instead of asking “How to do X in Elixir?”, ask “How to solve Y in Elixir?”. In other words, don’t ask how to implement a particular solution, instead describe the problem at hand. Stating the problem gives more context and less bias for a correct answer.
-- [Immutability In Elixir]([https://www.example.com](https://darioghilardi.com/immutability-in-elixir/))
+- [Immutability In Elixir](https://darioghilardi.com/immutability-in-elixir/)
 - Terms
     - Bytes: are integers in range 0..255
     - Unicode: are integers in the range 0..0x10FFFF i.e. 0..17825776
