@@ -23,32 +23,34 @@ In order to truly grasp the benefits of IOData, we must be familiar with the ide
 Biggest take away from the prerequisites should be the understanding that in order to deal with the fact that **data is immutable in Elixir**, and knowing we’re inevitably gonna need to manipulate data, how do we solve the immutability problem in Elixir? Well it’s pretty simple, we make copies of the data and manipulate that, but that solution comes at a cost, and the cost we pay is time and memory.
 
 # Why IOData Should Be In Your Toolkit
-```[?h, "el", ["l", [?o]], ”, I’m ”, "a IOList"]```
+```elixir
+[?h, "el", ["l", [?o]], ”, I’m ”, "a IOList"]
+```
 
 IOData exists because often you need to do many append operations on smaller chunks of binaries in order to create a bigger binary. However, **in Erlang and Elixir concatenating binaries will copy the concatenated binaries into a new binary**. This is a important thing to keep in mind. 
 
 **The main use for IOData is to avoid unnecessary memory allocation and copying.** Let’s say you want to output a email, “#{username}@email.com” … well, you could create the whole string first and pass that to IO.puts which would then send the bytes on their way: 
-```
+```elixir
 IO.puts(username <> “@email.com”)
-=> “username@gmail.com"
+#=> “username@gmail.com"
 ```
 But **this is going to allocate memory for the whole binary**, copying the bytes from the literal and the contents of the user variable.  IO.puts/1 will then copy that out to some destination (e.g. the console). Seems wasteful from a memory point of view. It would be nice if you could just skip the intermediate allocation and copying. 
 
 Well, that’s the point of IOData:
-```
+```elixir
 IO.puts [username, “@email”]
-=> “username@gmail.com"
+#=> “username@gmail.com"
 ```
 The output is the same in both cases, but **there is not intermediate allocation/copy of memory when using IOData!** IO.puts just pulls each item from the IOList passed to it and spits it straight out to console one chunk after the other. Much faster, and less memory used, with a bit of a caveat The speed improvement will be negligible if you’re just doing it once. If you do it a lot like on a webserver, then it will be faster. This is awesome for templating: **create an IOList of all the static strings with the variables at the right place, and then when you render the template the only copying needed is to the destination (file, socket, etc.).** Keep in mind that binaries can be shared in the BEAM transparently, and suddenly your templates, regardless of where they are called from, will often be sharing the bulk of their memory used for those static strings, even though the end output is customized with the interspersed variables. 
 
 Phoenix uses this trick, and is one of the reasons it can be so fast. A lot of Elixir/Erlang functions and APIs accept IOData for this reason …
-```
+```elixir
 def email(username, domain) do
   username <> "@" <> domain
 end
 ```
 In this function, creating the email address will copy the username and domain binaries. Now imagine you want to use the resulting email inside another binary:
-```
+```elixir
 def welcome_message(name, username, domain) do
   "Welcome #{name}, your email is: #{email(username, domain)}"
 end
@@ -58,7 +60,7 @@ IO.puts(welcome_message("Meg", "meg", "example.com"))
 #=> "Welcome Meg, your email is: meg@example.com"
 ```
 **Every time you concatenate binaries or use interpolation (#{}) you are making copies of those binaries.** However, in many cases you don't need the complete binary while you create it, but only at the end to print it out or send it somewhere. In such cases, you can construct the binary by creating IOData:
-```
+```elixir
 def email(username, domain) do
   [username, ?@, domain]
 end
@@ -84,7 +86,7 @@ The Circuits.I2C module is another place were IOData is commonly utilized, speci
 @spec write(bus(), address(), iodata(), [opt()]) :: :ok | {:error, term()}
 
 Notice how the 3rd argument for the write function accepts IOData. When writing data to your hardware we often use templates, and sometimes we need to manipulate the data before we write.
-```
+```elixir
 def write_to_board(first_binary, second_binary) do 
   data = first_binary <> “ “ <> second_binary
   Circuits.I2C.write(@bus, @address, data) 
@@ -92,7 +94,7 @@ def write_to_board(first_binary, second_binary) do
 end
 ```
 We see we’re using concat above but we know there’s a better, faster way. We can use IOData like in the following example.
-```
+```elixir
 def write_to_board(first_binary, second_binary) do 
   Circuits.I2C.write(@bus, @address, [first_binary, “ “, second_binary]) 
   # …
@@ -106,18 +108,18 @@ Now to move onto the next useful datatype Chardata! Erlang and Elixir also have 
 ### This means it can support Emojis.
 
 Sometimes we might want to personalize our output with something other than text, emojis have become a part of our world and they can be useful for conveying meaning. And luckily we can use chordata to use emojis in our messages when needed. Here are a couple examples below. 
-```
+```elixir
 IO.puts(["This is a example of using chardata ", [129302]])              
-=> This is a example of using chardata 🤖
+#=> This is a example of using chardata 🤖
 
 IO.puts(["This is a example of using chardata “, 🤖])              
-=> This is a example of using chardata 🤖
+#=> This is a example of using chardata 🤖
 ```
 A common gotcha to be aware of is a argument error when using certain functions. The IO module provides the chardata_to_string/1 function for chardata as the "counter-part" of the iodata_to_binary/1 function for IO data. If you try to use iodata_to_binary/1 on chardata, it will result in an argument error. For example, let's try to put a code point that is not representable with one byte, like ?π, inside IO data:
 
-```
+```elixir
 IO.iodata_to_binary(["The symbol for pi is: ", ?π])
-=> ** (ArgumentError) argument error
+#=> ** (ArgumentError) argument error
 ```
 
 If we use chardata instead, it will work as expected:
@@ -137,7 +139,7 @@ The following most likely looks familiar, it’s a common pattern we use with th
 The [IO.ANSI Module](https://hexdocs.pm/elixir/1.14/IO.ANSI.html) is a tool we can use to help further customize your log messages, this lets you play with the color of your terminal. 
 
 Logger already uses some Ansidata to color your error messages red, but sometimes you don’t wanna read through a sea of red you might need some data to stand out more we can use a combination of Chardata and ANSIData to accomplish this. 
-```
+```elixir
 # … This is a typical log message, you’re deleting a record and want a log to express that.
 
 def delete_user(user) do 
@@ -148,7 +150,7 @@ end
 Logger is pretty useful, especially when we need to log error messages. But sometimes we may want certain messages to stand out, we can use a combination of ANSIData, Chardata, and IOData to do this. 
 
 In this message we have added Stop Sign to the beginning of the message and have colored the user white to stand out from all the red text.
-```
+```elixir
 def delete_user(user) do 
   Logger.error([[128721], “ Failed To Delete: “, IO.ANSI.white, inspect(user)]) 
 end
