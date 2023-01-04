@@ -36,7 +36,7 @@ But **this is going to allocate memory for the whole binary**, copying the bytes
 
 Well, that’s the point of IOData:
 ```
-IO.puts [username, “@email”]
+IO.puts [username, “@email.com”]
 => “username@gmail.com"
 ```
 The output is the same in both cases, but **there is not intermediate allocation/copy of memory when using IOData!** IO.puts just pulls each item from the IOList passed to it and spits it straight out to console one chunk after the other. Much faster, and less memory used, with a bit of a caveat The speed improvement will be negligible if you’re just doing it once. If you do it a lot like on a webserver, then it will be faster. This is awesome for templating: **create an IOList of all the static strings with the variables at the right place, and then when you render the template the only copying needed is to the destination (file, socket, etc.).** Keep in mind that binaries can be shared in the BEAM transparently, and suddenly your templates, regardless of where they are called from, will often be sharing the bulk of their memory used for those static strings, even though the end output is customized with the interspersed variables. 
