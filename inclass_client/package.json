@@ -7,7 +7,7 @@
     "node": "11.10.0"
   },
   "dependencies": {
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "react": "^16.8.6",
     "react-confirm-alert": "^2.4.1",
     "react-countdown-now": "^2.1.0",
