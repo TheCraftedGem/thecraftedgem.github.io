@@ -169,6 +169,7 @@ It creates a sigil macro that takes a string with embedded interpolations and ma
 
 These datatypes can be pretty useful, not only can they help bring personality and expression to your code, they can bring some great performance benefits when used correctly. We hope to start seeing em being used more in the Elixir community. We mainly used log messages for the examples simply because Logger is a pretty common module but don’t think it’s the only place you can use these datatypes. Poke around your codebase and you might be surprised where you might be able to use IOData, Chardata, and ANSIdata. Cheers! Below are some useful resources that I used in putting this article together. 
 
+
 ### Useful Resources
 - [Understanding IODATA](https://elixirforum.com/t/understanding-iodata/3932/3)
 - [IO Docs](https://hexdocs.pm/elixir/IO.html)
